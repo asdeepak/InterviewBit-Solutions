@@ -1,0 +1,25 @@
+int isPrime(int n){
+    if(n == 2||n==3||n==5)
+        return 1;
+    for(int i = 2; i<sqrt(n)+1; ++i){
+        if(n%i == 0)
+            return 0;
+        else if(i == sqrt(n) && n%i != 0)
+        return 1;
+    }
+}
+
+vector<int> Solution::primesum(int A) {
+
+    vector<int> v;
+    for(int i = 2;i<A-1;++i){
+        if(isPrime(i)){
+            if(isPrime(A-i)){
+                v.push_back(i);
+                v.push_back(A-i);
+                break;
+            }
+        }
+    }
+    return v;
+}
