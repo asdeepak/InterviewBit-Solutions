@@ -1,0 +1,40 @@
+int Solution::maximumGap(const vector<int> &A) {
+    
+    int m = 0, n = A.size();
+    
+    for(int i=0; i<n; ++i)
+        if(m < A[i])
+            m = A[i];
+    int v[n];
+    
+    for(int i=0;i<n;++i)
+        v[i] = A[i];
+            
+    for(int exp= 1; m/exp > 0 ;exp*=10){
+        
+        int count[10] = {0};
+        int output[n];
+        
+        for(int i=0;i<n;++i)
+            count[(v[i]/exp)%10]++;
+            
+        for(int i=1;i<10;++i)
+            count[i] += count[i-1];
+        
+        for(int i=n-1;i>=0;i--){
+            
+            output[count[(v[i]/exp)%10]-1] = v[i];
+            count[(v[i]/exp)%10]--;
+        }
+        
+        for(int i=0;i<n;++i)
+            v[i] = output[i];
+    }
+   
+    int max = 0;
+    for(int i=1;i<n;++i){
+        if(v[i]-v[i-1] > max)
+            max = v[i] - v[i-1];
+    }
+    return max;
+}
