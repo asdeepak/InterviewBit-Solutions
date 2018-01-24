@@ -1,0 +1,12 @@
+int Solution::repeatedNumber(const vector<int> &A) {
+    int x = 0;
+    for(int i=0;i<A.size();++i){
+        
+        x  = x^A[i];
+        x = x^(i);
+    }
+    if(x)
+        return x;
+    else
+        return -1;
+}
