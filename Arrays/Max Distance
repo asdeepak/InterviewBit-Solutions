@@ -1,0 +1,40 @@
+int Solution::maximumGap(const vector<int> &A) {
+    
+    int n = A.size();
+    vector<int> min;
+    int max[n];
+    min.push_back(A[0]);
+    max[n-1] = A[n-1];
+
+    for(int i=1;i<n;++i){
+        if(min[i-1] > A[i])
+            min.push_back(A[i]);
+        else
+            min.push_back(min[i-1]);
+    }
+//    for(int i=0;i<min.size();++i)
+  //      cout << min[i] << " ";
+        
+    for(int i=n-2;i>=0;--i){
+        if(A[i] > max[i+1])
+            max[i] = A[i];
+        else
+            max[i] = max[i+1];
+    }
+   // for(int j=0;j<n;++j)
+     //   cout << max[j] << " ";
+    
+    int i=0,j=0,diff = -1;
+    
+    while(j<n && i<n){
+        if(min[i] <= max [j]){
+            if(diff < j-i)
+            diff = j-i;
+            j++;
+        }
+        else
+            i++;
+    }
+    
+    return diff;
+}
